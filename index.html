@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나만의 시작 페이지</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Noto Sans KR", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: background 1.5s ease;
+    color: #fff;
+    overflow-x: hidden;
+    padding: 40px 20px;
+  }
+
+  body.morning {
+    background: linear-gradient(135deg, #ffd89b 0%, #ff9a8b 50%, #ff6a88 100%);
+  }
+  body.afternoon {
+    background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 50%, #6c5ce7 100%);
+  }
+  body.evening {
+    background: linear-gradient(135deg, #fd746c 0%, #ff9068 50%, #c44569 100%);
+  }
+  body.night {
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+  }
+
+  .greeting {
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 300;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeInDown 1s ease forwards;
+    letter-spacing: 0.5px;
+  }
+
+  .time {
+    font-size: clamp(56px, 10vw, 100px);
+    font-weight: 200;
+    letter-spacing: -3px;
+    line-height: 1;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.2s forwards;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+  }
+  .time .seconds {
+    font-size: 0.5em;
+    opacity: 0.7;
+    margin-left: 8px;
+    font-weight: 300;
+  }
+
+  .date {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 300;
+    margin-top: 12px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.4s forwards;
+    letter-spacing: 1px;
+  }
+
+  .search-container {
+    width: 100%;
+    max-width: 600px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.6s forwards;
+  }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    padding: 6px 6px 6px 24px;
+    transition: all 0.3s ease;
+  }
+  .search-form:focus-within {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .search-icon {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    margin-right: 12px;
+  }
+
+  .search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 14px 0;
+    font-family: inherit;
+  }
+  .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .search-button {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    color: #333;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .search-button:hover {
+    background: #fff;
+    transform: scale(1.03);
+  }
+
+  .shortcuts {
+    margin-top: 32px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.8s forwards;
+  }
+
+  .shortcut {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    gap: 3px;
+  }
+  .shortcut:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  .shortcut-icon {
+    font-size: 22px;
+  }
+  .shortcut-label {
+    font-size: 9px;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  /* 증시 섹션 */
+  .market-section {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 48px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1s forwards;
+  }
+
+  .market-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
+  .market-title {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .market-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  .refresh-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(180deg);
+  }
+  .refresh-btn.spinning {
+    animation: spin 1s linear infinite;
+  }
+
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .stock-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    padding: 16px;
+    transition: all 0.3s ease;
+  }
+  .stock-card:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+  }
+
+  .stock-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  .stock-name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .stock-category {
+    font-size: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    opacity: 0.9;
+  }
+  .stock-value {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .stock-change {
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .stock-change.up { color: #ff6b6b; }
+  .stock-change.down { color: #4dabf7; }
+  .stock-change.flat { color: rgba(255, 255, 255, 0.8); }
+
+  .market-loading, .market-error {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+  .market-error {
+    background: rgba(255, 100, 100, 0.15);
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg,
+      rgba(255,255,255,0.08) 25%,
+      rgba(255,255,255,0.15) 50%,
+      rgba(255,255,255,0.08) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    .time { letter-spacing: -2px; }
+    .shortcut { width: 56px; height: 56px; }
+    .shortcut-icon { font-size: 18px; }
+    .search-button { padding: 10px 18px; font-size: 13px; }
+    .market-grid { grid-template-columns: repeat(2, 1fr); }
+    .stock-value { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" title="테마 변경">🎨</button>
+
+  <div class="greeting" id="greeting">좋은 하루예요</div>
+  <div class="time" id="time">00:00<span class="seconds" id="seconds">00</span></div>
+  <div class="date" id="date">불러오는 중...</div>
+
+  <div class="search-container">
+    <div class="search-form">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요..." autofocus>
+      <button class="search-button" id="searchButton">검색</button>
+    </div>
+  </div>
+
+  <div class="shortcuts">
+    <a href="https://www.youtube.com" target="_blank" class="shortcut" title="YouTube">
+      <span class="shortcut-icon">📺</span><span class="shortcut-label">YouTube</span>
+    </a>
+    <a href="https://gmail.com" target="_blank" class="shortcut" title="Gmail">
+      <span class="shortcut-icon">✉️</span><span class="shortcut-label">Gmail</span>
+    </a>
+    <a href="https://finance.naver.com" target="_blank" class="shortcut" title="네이버 증권">
+      <span class="shortcut-icon">📈</span><span class="shortcut-label">증권</span>
+    </a>
+    <a href="https://github.com" target="_blank" class="shortcut" title="GitHub">
+      <span class="shortcut-icon">💻</span><span class="shortcut-label">GitHub</span>
+    </a>
+    <a href="https://maps.google.com" target="_blank" class="shortcut" title="지도">
+      <span class="shortcut-icon">🗺️</span><span class="shortcut-label">지도</span>
+    </a>
+    <a href="https://translate.google.com" target="_blank" class="shortcut" title="번역">
+      <span class="shortcut-icon">🌐</span><span class="shortcut-label">번역</span>
+    </a>
+    <a href="https://drive.google.com" target="_blank" class="shortcut" title="드라이브">
+      <span class="shortcut-icon">📁</span><span class="shortcut-label">드라이브</span>
+    </a>
+  </div>
+
+  <div class="market-section">
+    <div class="market-header">
+      <div class="market-title">
+        <span>📊</span><span>증시 현황</span>
+      </div>
+      <div class="market-meta">
+        <span id="marketUpdated"></span>
+        <button class="refresh-btn" id="refreshBtn" title="새로고침">↻</button>
+      </div>
+    </div>
+    <div class="market-grid" id="marketGrid">
+      <div class="market-loading">증시 정보를 불러오는 중입니다...</div>
+    </div>
+  </div>
+
+<script>
+  /* ===== 시계 & 인사말 & 테마 ===== */
+  const themes = ['morning', 'afternoon', 'evening', 'night'];
+  let manualTheme = null;
+
+  function getAutoTheme() {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 12) return 'morning';
+    if (h >= 12 && h < 17) return 'afternoon';
+    if (h >= 17 && h < 20) return 'evening';
+    return 'night';
+  }
+  function getGreeting() {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 12) return '좋은 아침이에요 ☀️';
+    if (h >= 12 && h < 17) return '활기찬 오후예요 🌤️';
+    if (h >= 17 && h < 20) return '편안한 저녁이에요 🌅';
+    return '고요한 밤이에요 🌙';
+  }
+  function applyTheme() {
+    document.body.className = manualTheme || getAutoTheme();
+  }
+  function pad(n) { return n.toString().padStart(2, '0'); }
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('time').innerHTML =
+      pad(now.getHours()) + ':' + pad(now.getMinutes()) +
+      '<span class="seconds">' + pad(now.getSeconds()) + '</span>';
+    const days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+    document.getElementById('date').textContent =
+      now.getFullYear() + '년 ' + (now.getMonth()+1) + '월 ' + now.getDate() + '일 ' + days[now.getDay()];
+    document.getElementById('greeting').textContent = getGreeting();
+  }
+
+  /* ===== 검색 ===== */
+  function doSearch() {
+    const q = document.getElementById('searchInput').value.trim();
+    if (q) {
+      window.open('https://www.google.com/search?q=' + encodeURIComponent(q), '_blank');
+      document.getElementById('searchInput').value = '';
+    }
+  }
+  document.getElementById('searchButton').addEventListener('click', doSearch);
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch();
+  });
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const current = manualTheme || getAutoTheme();
+    manualTheme = themes[(themes.indexOf(current) + 1) % themes.length];
+    applyTheme();
+  });
+
+  /* ===== 증시 데이터 ===== */
+  function formatChange(num) {
+    if (num === 0 || num === '0') return '0.00';
+    const n = parseFloat(num);
+    return (n > 0 ? '+' : '') + n.toFixed(2);
+  }
+
+  function renderMarket(data) {
+    const grid = document.getElementById('marketGrid');
+    grid.innerHTML = '';
+
+    const allItems = [...(data.indices || []), ...(data.stocks || [])];
+
+    if (allItems.length === 0) {
+      grid.innerHTML = '<div class="market-error">데이터를 불러올 수 없습니다.</div>';
+      return;
+    }
+
+    allItems.forEach(item => {
+      const changePercent = parseFloat(item.changePercent) || 0;
+      const direction = changePercent > 0 ? 'up' : (changePercent < 0 ? 'down' : 'flat');
+      const arrow = changePercent > 0 ? '▲' : (changePercent < 0 ? '▼' : '─');
+
+      const card = document.createElement('div');
+      card.className = 'stock-card';
+      card.innerHTML = `
+        <div class="stock-card-header">
+          <div class="stock-name">${item.name}</div>
+          <div class="stock-category">${item.category || '지수'}</div>
+        </div>
+        <div class="stock-value">${item.value}</div>
+        <div class="stock-change ${direction}">
+          <span>${arrow}</span>
+          <span>${item.change}</span>
+          <span>(${formatChange(changePercent)}%)</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    const now = new Date();
+    document.getElementById('marketUpdated').textContent =
+      '업데이트 ' + pad(now.getHours()) + ':' + pad(now.getMinutes());
+  }
+
+  let isFetching = false;
+
+  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  async function fetchMarketData(isRetry = false) {
+    if (isFetching) return; // 연타/중복 호출 방지
+    isFetching = true;
+
+    const grid = document.getElementById('marketGrid');
+    const refreshBtn = document.getElementById('refreshBtn');
+    refreshBtn.classList.add('spinning');
+
+    grid.innerHTML = `
+      <div class="market-loading">
+        실시간 증시 정보를 가져오는 중입니다...${isRetry ? '<br><span style="font-size:12px;opacity:0.7;">재시도 중...</span>' : ''}
+      </div>
+    `;
+
+    const prompt = `현재 한국 시간 기준 가장 최근의 증시 정보를 웹 검색으로 찾아주세요. 다음 종목들의 현재가, 전일 대비 변동, 변동률(%)을 조사하세요:
+
+1. 코스피 지수
+2. 코스닥 지수
+3. S&P 500 (미국)
+4. 나스닥 종합지수 / NASDAQ (미국)
+5. TOPIX (일본)
+6. 닛케이225 / Nikkei 225 (일본)
+7. 삼성전자 (반도체)
+8. SK하이닉스 (반도체)
+9. NVIDIA / 엔비디아 (AI, 미국)
+
+오직 아래 JSON 형식으로만 응답하세요. 다른 설명, 마크다운, 코드 블록 표시 없이 순수 JSON만:
+
+{
+  "indices": [
+    {"name": "코스피", "category": "한국", "value": "2,650.20", "change": "+15.30", "changePercent": "0.58"},
+    {"name": "코스닥", "category": "한국", "value": "...", "change": "...", "changePercent": "..."},
+    {"name": "S&P 500", "category": "미국", "value": "...", "change": "...", "changePercent": "..."},
+    {"name": "나스닥", "category": "미국", "value": "...", "change": "...", "changePercent": "..."},
+    {"name": "TOPIX", "category": "일본", "value": "...", "change": "...", "changePercent": "..."},
+    {"name": "닛케이225", "category": "일본", "value": "...", "change": "...", "changePercent": "..."}
+  ],
+  "stocks": [
+    {"name": "삼성전자", "category": "반도체", "value": "73,500", "change": "+500", "changePercent": "0.68"},
+    {"name": "SK하이닉스", "category": "반도체", "value": "...", "change": "...", "changePercent": "..."},
+    {"name": "NVIDIA", "category": "AI", "value": "...", "change": "...", "changePercent": "..."}
+  ]
+}
+
+value는 통화 기호 없이 숫자만 (쉼표 OK). change는 부호 포함. changePercent는 부호 포함 숫자만(%기호 제외).`;
+
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 1500,
+          messages: [{ role: "user", content: prompt }],
+          tools: [{ type: "web_search_20250305", name: "web_search" }]
+        })
+      });
+
+      if (!response.ok) {
+        // 429(요청 한도 초과)면 잠시 후 한 번만 자동 재시도
+        if (response.status === 429 && !isRetry) {
+          grid.innerHTML = `
+            <div class="market-loading">
+              요청이 많아 잠시 대기 중입니다...<br>
+              <span style="font-size:12px;opacity:0.7;">15초 후 자동으로 다시 시도합니다.</span>
+            </div>
+          `;
+          isFetching = false;
+          refreshBtn.classList.remove('spinning');
+          await sleep(15000);
+          return fetchMarketData(true);
+        }
+        throw new Error("API 요청 실패: " + response.status);
+      }
+
+      const data = await response.json();
+
+      // 모든 text 블록 모으기
+      const fullText = data.content
+        .filter(item => item.type === "text")
+        .map(item => item.text)
+        .join("\n");
+
+      // JSON 추출 (마크다운 코드 블록 제거)
+      let jsonText = fullText.replace(/```json/g, "").replace(/```/g, "").trim();
+
+      // 첫 { 부터 마지막 } 까지 추출
+      const firstBrace = jsonText.indexOf("{");
+      const lastBrace = jsonText.lastIndexOf("}");
+      if (firstBrace !== -1 && lastBrace !== -1) {
+        jsonText = jsonText.substring(firstBrace, lastBrace + 1);
+      }
+
+      const marketData = JSON.parse(jsonText);
+      renderMarket(marketData);
+    } catch (err) {
+      console.error("증시 데이터 오류:", err);
+      const is429 = err.message.includes("429");
+      grid.innerHTML = `
+        <div class="market-error">
+          ⚠️ 증시 정보를 불러오지 못했어요.<br>
+          <span style="font-size:12px;opacity:0.7;">${is429 ? '요청이 너무 많습니다. 1~2분 후 새로고침(↻) 버튼을 눌러주세요.' : '잠시 후 다시 시도해주세요. (' + err.message + ')'}</span>
+        </div>
+      `;
+    } finally {
+      isFetching = false;
+      refreshBtn.classList.remove('spinning');
+    }
+  }
+
+  document.getElementById('refreshBtn').addEventListener('click', fetchMarketData);
+
+  /* ===== 초기화 ===== */
+  applyTheme();
+  updateClock();
+  setInterval(updateClock, 1000);
+  setInterval(() => { if (!manualTheme) applyTheme(); }, 60000);
+
+  // 증시 정보 첫 로드
+  fetchMarketData();
+  // 15분마다 자동 갱신
+  setInterval(fetchMarketData, 15 * 60 * 1000);
+</script>
+</body>
+</html>
