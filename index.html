@@ -393,21 +393,6 @@
     </a>
   </div>
 
-  <div class="market-section">
-    <div class="market-header">
-      <div class="market-title">
-        <span>📊</span><span>증시 현황</span>
-      </div>
-      <div class="market-meta">
-        <span id="marketUpdated"></span>
-        <button class="refresh-btn" id="refreshBtn" title="새로고침">↻</button>
-      </div>
-    </div>
-    <div class="market-grid" id="marketGrid">
-      <div class="market-loading">증시 정보를 불러오는 중입니다...</div>
-    </div>
-  </div>
-
 <script>
   /* ===== 시계 & 인사말 & 테마 ===== */
   const themes = ['morning', 'afternoon', 'evening', 'night'];
@@ -460,104 +445,11 @@
     applyTheme();
   });
 
-  /* ===== 증시 데이터 ===== */
-  function formatChange(num) {
-    if (num === 0 || num === '0') return '0.00';
-    const n = parseFloat(num);
-    return (n > 0 ? '+' : '') + n.toFixed(2);
-  }
-
-  function renderMarket(data) {
-    const grid = document.getElementById('marketGrid');
-    grid.innerHTML = '';
-
-    const allItems = [...(data.indices || []), ...(data.stocks || [])];
-
-    if (allItems.length === 0) {
-      grid.innerHTML = '<div class="market-error">데이터를 불러올 수 없습니다.</div>';
-      return;
-    }
-
-    allItems.forEach(item => {
-      const changePercent = parseFloat(item.changePercent) || 0;
-      const direction = changePercent > 0 ? 'up' : (changePercent < 0 ? 'down' : 'flat');
-      const arrow = changePercent > 0 ? '▲' : (changePercent < 0 ? '▼' : '─');
-
-      const card = document.createElement('div');
-      card.className = 'stock-card';
-      card.innerHTML = `
-        <div class="stock-card-header">
-          <div class="stock-name">${item.name}</div>
-          <div class="stock-category">${item.category || '지수'}</div>
-        </div>
-        <div class="stock-value">${item.value}</div>
-        <div class="stock-change ${direction}">
-          <span>${arrow}</span>
-          <span>${item.change}</span>
-          <span>(${formatChange(changePercent)}%)</span>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-
-    const now = new Date();
-    document.getElementById('marketUpdated').textContent =
-      '업데이트 ' + pad(now.getHours()) + ':' + pad(now.getMinutes());
-  }
-
-  let isFetching = false;
-
-  // 증시 데이터는 같은 주소(GitHub Pages)의 market.json 에서 읽는다.
-  // 이 파일은 GitHub Actions 가 서버에서 30분마다 야후 파이낸스 데이터로 갱신한다.
-  // → 브라우저에서 외부 API 를 직접 부르지 않으므로 CORS/키 문제가 없다.
-  async function fetchMarketData() {
-    if (isFetching) return;
-    isFetching = true;
-
-    const grid = document.getElementById('marketGrid');
-    const refreshBtn = document.getElementById('refreshBtn');
-    refreshBtn.classList.add('spinning');
-    grid.innerHTML = '<div class="market-loading">증시 정보를 불러오는 중입니다...</div>';
-
-    try {
-      const res = await fetch('market.json?_=' + Date.now(), { cache: 'no-store' });
-      if (!res.ok) throw new Error('market.json 요청 실패: ' + res.status);
-      const data = await res.json();
-      renderMarket(data);
-
-      if (data.updatedAt) {
-        const t = new Date(data.updatedAt);
-        if (!isNaN(t)) {
-          document.getElementById('marketUpdated').textContent =
-            '업데이트 ' + pad(t.getHours()) + ':' + pad(t.getMinutes());
-        }
-      }
-    } catch (err) {
-      console.error('증시 데이터 오류:', err);
-      document.getElementById('marketGrid').innerHTML = `
-        <div class="market-error">
-          ⚠️ 증시 정보를 불러오지 못했어요.<br>
-          <span style="font-size:12px;opacity:0.7;">잠시 후 새로고침(↻) 버튼을 눌러주세요. (${err.message})</span>
-        </div>
-      `;
-    } finally {
-      isFetching = false;
-      refreshBtn.classList.remove('spinning');
-    }
-  }
-
-  document.getElementById('refreshBtn').addEventListener('click', fetchMarketData);
-
   /* ===== 초기화 ===== */
   applyTheme();
   updateClock();
   setInterval(updateClock, 1000);
   setInterval(() => { if (!manualTheme) applyTheme(); }, 60000);
-
-  // 증시 정보 첫 로드
-  fetchMarketData();
-  // 15분마다 자동 갱신
-  setInterval(fetchMarketData, 15 * 60 * 1000);
 </script>
 </body>
 </html>
