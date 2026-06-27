@@ -6,149 +6,153 @@
 <!-- 검색엔진 노출 차단 -->
 <meta name="robots" content="noindex, nofollow, noimageindex, noarchive">
 <meta name="referrer" content="no-referrer">
-<title>우리 아이 갤러리</title>
+<title>나만의 시작 페이지</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Noto Sans KR", sans-serif;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: background 1.5s ease;
     color: #fff;
     overflow-x: hidden;
-    padding: 36px 18px 80px;
-    transition: background 1.5s ease;
-    background: linear-gradient(135deg, #ffd89b 0%, #ff9a8b 50%, #ff6a88 100%);
+    padding: 40px 20px 80px;
+    background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 50%, #6c5ce7 100%);
   }
   body.morning   { background: linear-gradient(135deg, #ffd89b 0%, #ff9a8b 50%, #ff6a88 100%); }
   body.afternoon { background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 50%, #6c5ce7 100%); }
   body.evening   { background: linear-gradient(135deg, #fd746c 0%, #ff9068 50%, #c44569 100%); }
   body.night     { background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
 
-  .wrap { max-width: 1100px; margin: 0 auto; }
+  .theme-toggle {
+    position: fixed; top: 20px; right: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; width: 44px; height: 44px; border-radius: 50%;
+    cursor: pointer; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease; z-index: 10;
+  }
+  .theme-toggle:hover { background: rgba(255, 255, 255, 0.25); transform: scale(1.1); }
 
-  header.top {
-    text-align: center;
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeInDown 1s ease forwards;
+  .greeting {
+    font-size: clamp(18px, 2.5vw, 24px); font-weight: 300; margin-bottom: 12px;
+    opacity: 0; animation: fadeInDown 1s ease forwards; letter-spacing: 0.5px;
   }
-  .title {
-    font-size: clamp(26px, 5vw, 44px);
-    font-weight: 300;
-    letter-spacing: 0.5px;
-    text-shadow: 0 4px 30px rgba(0,0,0,0.15);
+  .time {
+    font-size: clamp(56px, 10vw, 100px); font-weight: 200; letter-spacing: -3px; line-height: 1;
+    opacity: 0; animation: fadeInDown 1s ease 0.2s forwards; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
   }
-  .subtitle {
-    margin-top: 10px;
-    font-size: clamp(13px, 2vw, 16px);
-    font-weight: 300;
-    opacity: 0.85;
+  .time .seconds { font-size: 0.5em; opacity: 0.7; margin-left: 8px; font-weight: 300; }
+  .date {
+    font-size: clamp(16px, 2vw, 20px); font-weight: 300; margin-top: 12px; margin-bottom: 36px;
+    opacity: 0; animation: fadeInDown 1s ease 0.4s forwards; letter-spacing: 1px;
   }
 
-  /* 그리드 (반응형 메이슨리) */
-  .gallery {
-    column-count: 4;
-    column-gap: 14px;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.3s forwards;
+  .search-container { width: 100%; max-width: 600px; opacity: 0; animation: fadeInUp 1s ease 0.6s forwards; }
+  .search-form {
+    display: flex; align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px; padding: 6px 6px 6px 24px; transition: all 0.3s ease;
   }
+  .search-form:focus-within {
+    background: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+  .search-icon { color: rgba(255, 255, 255, 0.8); font-size: 18px; margin-right: 12px; }
+  .search-input {
+    flex: 1; background: transparent; border: none; outline: none;
+    color: #fff; font-size: 16px; padding: 14px 0; font-family: inherit;
+  }
+  .search-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+  .search-button {
+    background: rgba(255, 255, 255, 0.9); border: none; color: #333;
+    padding: 12px 24px; border-radius: 50px; cursor: pointer; font-size: 14px;
+    font-weight: 500; transition: all 0.2s ease; font-family: inherit;
+  }
+  .search-button:hover { background: #fff; transform: scale(1.03); }
+
+  .shortcuts {
+    margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeInUp 1s ease 0.8s forwards;
+  }
+  .shortcut {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 64px; height: 64px; border-radius: 18px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-decoration: none; color: #fff; transition: all 0.3s ease; cursor: pointer; gap: 3px;
+  }
+  .shortcut:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+  .shortcut-icon { font-size: 22px; }
+  .shortcut-label { font-size: 9px; font-weight: 500; opacity: 0.9; }
+
+  /* ===== 갤러리 ===== */
+  .gallery-wrap { width: 100%; max-width: 1100px; margin: 52px auto 0; opacity: 0; animation: fadeInUp 1s ease 1s forwards; }
+  .gallery-head {
+    text-align: center; margin-bottom: 22px; font-weight: 300;
+    font-size: clamp(20px, 3vw, 30px); letter-spacing: 0.5px;
+  }
+  .gallery-head .count { font-size: 14px; opacity: 0.8; font-weight: 300; }
+
+  .gallery { column-count: 4; column-gap: 14px; }
   @media (max-width: 1000px) { .gallery { column-count: 3; } }
   @media (max-width: 680px)  { .gallery { column-count: 2; } }
   @media (max-width: 380px)  { .gallery { column-count: 1; } }
 
   .tile {
-    position: relative;
-    break-inside: avoid;
-    margin-bottom: 14px;
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: pointer;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.18);
+    position: relative; break-inside: avoid; margin-bottom: 14px;
+    border-radius: 16px; overflow: hidden; cursor: pointer;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);
     box-shadow: 0 6px 22px rgba(0,0,0,0.12);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .tile:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,0.28); }
   .tile img { display: block; width: 100%; height: auto; }
-
   .tile .badge {
-    position: absolute;
-    top: 10px; left: 10px;
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: 3px 9px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 500;
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500;
     display: flex; align-items: center; gap: 4px;
   }
-  .tile .date {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 22px 12px 10px;
-    font-size: 12px;
+  .tile .tile-date {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 12px 10px; font-size: 12px;
     background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
     opacity: 0; transition: opacity 0.25s ease;
   }
-  .tile:hover .date { opacity: 1; }
-
-  .play-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-  }
+  .tile:hover .tile-date { opacity: 1; }
+  .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
   .play-overlay span {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
     border: 2px solid rgba(255,255,255,0.85);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; padding-left: 4px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; padding-left: 4px;
   }
-
-  /* 빈 상태 / 로딩 */
   .msg {
-    text-align: center;
-    padding: 60px 24px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 20px;
-    font-size: 15px;
-    line-height: 1.7;
-    opacity: 0.95;
+    text-align: center; padding: 60px 24px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px; font-size: 15px; line-height: 1.7; opacity: 0.95;
   }
   .msg .big { font-size: 40px; display:block; margin-bottom: 14px; }
 
-  /* 라이트박스 */
   .lightbox {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.92);
-    display: none;
-    align-items: center; justify-content: center;
-    z-index: 100;
-    padding: 20px;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+    display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px;
   }
   .lightbox.open { display: flex; }
-  .lightbox img, .lightbox video {
-    max-width: 100%;
-    max-height: 88vh;
-    border-radius: 10px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
+  .lightbox img, .lightbox video { max-width: 100%; max-height: 88vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
   .lb-close, .lb-nav {
-    position: absolute;
-    background: rgba(255,255,255,0.14);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s ease;
-    user-select: none;
+    position: absolute; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; user-select: none;
   }
   .lb-close { top: 18px; right: 18px; width: 46px; height: 46px; font-size: 22px; }
   .lb-nav { top: 50%; transform: translateY(-50%); width: 52px; height: 52px; font-size: 26px; }
@@ -157,16 +161,58 @@
   .lb-close:hover, .lb-nav:hover { background: rgba(255,255,255,0.28); }
   @media (max-width: 600px) { .lb-nav { width: 42px; height: 42px; font-size: 20px; } }
 
-  @keyframes fadeInDown { from { opacity:0; transform: translateY(-20px);} to {opacity:1; transform:translateY(0);} }
-  @keyframes fadeInUp   { from { opacity:0; transform: translateY(20px);}  to {opacity:1; transform:translateY(0);} }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInUp   { from { opacity: 0; transform: translateY(20px); }  to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 480px) {
+    .time { letter-spacing: -2px; }
+    .shortcut { width: 56px; height: 56px; }
+    .shortcut-icon { font-size: 18px; }
+    .search-button { padding: 10px 18px; font-size: 13px; }
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="top">
-      <div class="title">🌸 우리 아이</div>
-      <div class="subtitle" id="subtitle">소중한 순간들</div>
-    </header>
+  <button class="theme-toggle" id="themeToggle" title="테마 변경">🎨</button>
+
+  <div class="greeting" id="greeting">좋은 하루예요</div>
+  <div class="time" id="time">00:00<span class="seconds" id="seconds">00</span></div>
+  <div class="date" id="date">불러오는 중...</div>
+
+  <div class="search-container">
+    <div class="search-form">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요..." autofocus>
+      <button class="search-button" id="searchButton">검색</button>
+    </div>
+  </div>
+
+  <div class="shortcuts">
+    <a href="https://www.youtube.com" target="_blank" class="shortcut" title="YouTube">
+      <span class="shortcut-icon">📺</span><span class="shortcut-label">YouTube</span>
+    </a>
+    <a href="https://gmail.com" target="_blank" class="shortcut" title="Gmail">
+      <span class="shortcut-icon">✉️</span><span class="shortcut-label">Gmail</span>
+    </a>
+    <a href="https://finance.naver.com" target="_blank" class="shortcut" title="네이버 증권">
+      <span class="shortcut-icon">📈</span><span class="shortcut-label">증권</span>
+    </a>
+    <a href="https://github.com" target="_blank" class="shortcut" title="GitHub">
+      <span class="shortcut-icon">💻</span><span class="shortcut-label">GitHub</span>
+    </a>
+    <a href="https://maps.google.com" target="_blank" class="shortcut" title="지도">
+      <span class="shortcut-icon">🗺️</span><span class="shortcut-label">지도</span>
+    </a>
+    <a href="https://translate.google.com" target="_blank" class="shortcut" title="번역">
+      <span class="shortcut-icon">🌐</span><span class="shortcut-label">번역</span>
+    </a>
+    <a href="https://drive.google.com" target="_blank" class="shortcut" title="드라이브">
+      <span class="shortcut-icon">📁</span><span class="shortcut-label">드라이브</span>
+    </a>
+  </div>
+
+  <div class="gallery-wrap">
+    <div class="gallery-head">🌸 우리 아이 <span class="count" id="galCount"></span></div>
     <div id="content">
       <div class="msg"><span class="big">⏳</span>불러오는 중...</div>
     </div>
@@ -180,18 +226,54 @@
   </div>
 
 <script>
-  /* 시간대별 배경 테마 (시작페이지와 동일) */
-  function applyTheme() {
-    const h = new Date().getHours();
-    let t = 'night';
-    if (h >= 5 && h < 12) t = 'morning';
-    else if (h >= 12 && h < 17) t = 'afternoon';
-    else if (h >= 17 && h < 20) t = 'evening';
-    document.body.className = t;
-  }
-  applyTheme();
-  setInterval(applyTheme, 60000);
+  /* ===== 시계 & 인사말 & 테마 ===== */
+  const themes = ['morning', 'afternoon', 'evening', 'night'];
+  let manualTheme = null;
 
+  function getAutoTheme() {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 12) return 'morning';
+    if (h >= 12 && h < 17) return 'afternoon';
+    if (h >= 17 && h < 20) return 'evening';
+    return 'night';
+  }
+  function getGreeting() {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 12) return '좋은 아침이에요 ☀️';
+    if (h >= 12 && h < 17) return '활기찬 오후예요 🌤️';
+    if (h >= 17 && h < 20) return '편안한 저녁이에요 🌅';
+    return '고요한 밤이에요 🌙';
+  }
+  function applyTheme() { document.body.className = manualTheme || getAutoTheme(); }
+  function pad(n) { return n.toString().padStart(2, '0'); }
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('time').innerHTML =
+      pad(now.getHours()) + ':' + pad(now.getMinutes()) +
+      '<span class="seconds">' + pad(now.getSeconds()) + '</span>';
+    const days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+    document.getElementById('date').textContent =
+      now.getFullYear() + '년 ' + (now.getMonth()+1) + '월 ' + now.getDate() + '일 ' + days[now.getDay()];
+    document.getElementById('greeting').textContent = getGreeting();
+  }
+
+  /* ===== 검색 ===== */
+  function doSearch() {
+    const q = document.getElementById('searchInput').value.trim();
+    if (q) {
+      window.open('https://www.google.com/search?q=' + encodeURIComponent(q), '_blank');
+      document.getElementById('searchInput').value = '';
+    }
+  }
+  document.getElementById('searchButton').addEventListener('click', doSearch);
+  document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const current = manualTheme || getAutoTheme();
+    manualTheme = themes[(themes.indexOf(current) + 1) % themes.length];
+    applyTheme();
+  });
+
+  /* ===== 갤러리 ===== */
   function fmtDate(s) {
     const d = new Date(s);
     if (isNaN(d)) return '';
@@ -204,16 +286,17 @@
   function buildGallery(data) {
     items = (data.items || []).slice();
     const content = document.getElementById('content');
+    const countEl = document.getElementById('galCount');
 
     if (items.length === 0) {
+      countEl.textContent = '';
       content.innerHTML = '<div class="msg"><span class="big">📷</span>'
         + '아직 올라온 사진·영상이 없어요.<br>'
         + '컴퓨터의 <b>“딸 갤러리”</b> 폴더에 사진이나 영상을 넣으면<br>잠시 후 여기에 자동으로 나타납니다.</div>';
       return;
     }
 
-    const sub = document.getElementById('subtitle');
-    sub.textContent = '소중한 순간들 · 사진과 영상 ' + items.length + '개';
+    countEl.textContent = '· ' + items.length + '개';
 
     const grid = document.createElement('div');
     grid.className = 'gallery';
@@ -221,7 +304,6 @@
     items.forEach((it, idx) => {
       const tile = document.createElement('div');
       tile.className = 'tile';
-      tile.dataset.idx = idx;
 
       const thumb = it.type === 'video' ? (it.poster || it.src) : it.src;
       const img = document.createElement('img');
@@ -236,7 +318,7 @@
       }
       if (it.date) {
         const d = document.createElement('div');
-        d.className = 'date';
+        d.className = 'tile-date';
         d.textContent = fmtDate(it.date);
         tile.appendChild(d);
       }
@@ -260,10 +342,7 @@
     if (!it) return;
     if (it.type === 'video') {
       const v = document.createElement('video');
-      v.src = it.src;
-      v.controls = true;
-      v.autoplay = true;
-      v.playsInline = true;
+      v.src = it.src; v.controls = true; v.autoplay = true; v.playsInline = true;
       if (it.poster) v.poster = it.poster;
       stage.appendChild(v);
     } else {
@@ -274,11 +353,7 @@
   }
   function openLightbox(idx) { current = idx; renderStage(); lightbox.classList.add('open'); }
   function closeLightbox() { lightbox.classList.remove('open'); stage.innerHTML = ''; current = -1; }
-  function navigate(step) {
-    if (current < 0) return;
-    current = (current + step + items.length) % items.length;
-    renderStage();
-  }
+  function navigate(step) { if (current < 0) return; current = (current + step + items.length) % items.length; renderStage(); }
 
   document.getElementById('lbClose').addEventListener('click', closeLightbox);
   document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
@@ -291,8 +366,7 @@
     else if (e.key === 'ArrowRight') navigate(1);
   });
 
-  /* manifest 불러오기 */
-  async function load() {
+  async function loadGallery() {
     try {
       const res = await fetch('manifest.json?_=' + Date.now(), { cache: 'no-store' });
       if (!res.ok) throw new Error('manifest 없음 ' + res.status);
@@ -302,9 +376,14 @@
       buildGallery({ items: [] });
     }
   }
-  load();
-  /* 5분마다 새 사진 확인 */
-  setInterval(load, 5 * 60 * 1000);
+
+  /* ===== 초기화 ===== */
+  applyTheme();
+  updateClock();
+  setInterval(updateClock, 1000);
+  setInterval(() => { if (!manualTheme) applyTheme(); }, 60000);
+  loadGallery();
+  setInterval(loadGallery, 5 * 60 * 1000);
 </script>
 </body>
 </html>
