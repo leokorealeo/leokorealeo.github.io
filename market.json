@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-07-16T00:11:31Z",
+  "updatedAt": "2026-07-16T07:48:21Z",
   "indices": [
     {
       "name": "코스피",
       "category": "한국",
-      "value": "7,284.41",
-      "change": "+427.58",
-      "changePercent": "6.24"
+      "value": "6,820.60",
+      "change": "-463.81",
+      "changePercent": "-6.37"
     },
     {
       "name": "코스닥",
       "category": "한국",
-      "value": "829.43",
-      "change": "+30.07",
-      "changePercent": "3.76"
+      "value": "791.84",
+      "change": "+7.86",
+      "changePercent": "1.00"
     },
     {
       "name": "S&P 500",
@@ -26,38 +26,38 @@
       "name": "나스닥",
       "category": "미국",
       "value": "26,269.23",
-      "change": "+162.22",
+      "change": "+162.23",
       "changePercent": "0.62"
     },
     {
       "name": "닛케이225",
       "category": "일본",
-      "value": "68,751.51",
-      "change": "+1,008.01",
-      "changePercent": "1.49"
+      "value": "66,835.54",
+      "change": "-1,915.97",
+      "changePercent": "-2.79"
     },
     {
       "name": "USD/KRW",
       "category": "환율",
-      "value": "1,485.22",
-      "change": "-0.82",
-      "changePercent": "-0.06"
+      "value": "1,478.37",
+      "change": "-7.67",
+      "changePercent": "-0.52"
     }
   ],
   "stocks": [
     {
       "name": "삼성전자",
       "category": "반도체",
-      "value": "279,500",
-      "change": "+16,500",
-      "changePercent": "6.27"
+      "value": "255,000",
+      "change": "-24,500",
+      "changePercent": "-8.77"
     },
     {
       "name": "SK하이닉스",
       "category": "반도체",
-      "value": "2,082,000",
-      "change": "+169,000",
-      "changePercent": "8.83"
+      "value": "1,842,000",
+      "change": "-240,000",
+      "changePercent": "-11.53"
     },
     {
       "name": "NVIDIA",
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "64,790",
-      "change": "+69",
-      "changePercent": "0.11"
+      "value": "64,200",
+      "change": "-521",
+      "changePercent": "-0.80"
     }
   ]
 }
