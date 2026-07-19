@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-19T14:43:01Z",
+  "updatedAt": "2026-07-19T18:08:15Z",
   "indices": [
     {
       "name": "코스피",
@@ -26,22 +26,22 @@
       "name": "나스닥",
       "category": "미국",
       "value": "25,520.24",
-      "change": "-361.70",
+      "change": "-361.66",
       "changePercent": "-1.40"
     },
     {
       "name": "닛케이225",
       "category": "일본",
       "value": "64,141.12",
-      "change": "-2,694.42",
+      "change": "-2,694.38",
       "changePercent": "-4.03"
     },
     {
       "name": "USD/KRW",
       "category": "환율",
-      "value": "1,487.46",
-      "change": "+9.18",
-      "changePercent": "0.62"
+      "value": "1,487.96",
+      "change": "+9.68",
+      "changePercent": "0.65"
     }
   ],
   "stocks": [
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "64,439",
-      "change": "-356",
-      "changePercent": "-0.55"
+      "value": "64,292",
+      "change": "-502",
+      "changePercent": "-0.78"
     }
   ]
 }
