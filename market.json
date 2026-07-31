@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-07-31T04:54:18Z",
+  "updatedAt": "2026-07-31T07:43:08Z",
   "indices": [
     {
       "name": "코스피",
       "category": "한국",
-      "value": "6,437.58",
-      "change": "+844.02",
-      "changePercent": "15.09"
+      "value": "6,595.45",
+      "change": "+1,001.89",
+      "changePercent": "17.91"
     },
     {
       "name": "코스닥",
       "category": "한국",
-      "value": "710.05",
-      "change": "+47.37",
-      "changePercent": "7.15"
+      "value": "719.76",
+      "change": "+57.08",
+      "changePercent": "8.61"
     },
     {
       "name": "S&P 500",
@@ -32,32 +32,32 @@
     {
       "name": "닛케이225",
       "category": "일본",
-      "value": "64,340.34",
-      "change": "+2,472.91",
-      "changePercent": "4.00"
+      "value": "64,362.02",
+      "change": "+2,494.59",
+      "changePercent": "4.03"
     },
     {
       "name": "USD/KRW",
       "category": "환율",
-      "value": "1,439.30",
-      "change": "+17.96",
-      "changePercent": "1.26"
+      "value": "1,431.40",
+      "change": "+10.06",
+      "changePercent": "0.71"
     }
   ],
   "stocks": [
     {
       "name": "삼성전자",
       "category": "반도체",
-      "value": "252,000",
-      "change": "+45,000",
-      "changePercent": "21.74"
+      "value": "262,500",
+      "change": "+55,500",
+      "changePercent": "26.81"
     },
     {
       "name": "SK하이닉스",
       "category": "반도체",
-      "value": "1,679,000",
-      "change": "+357,000",
-      "changePercent": "27.00"
+      "value": "1,718,000",
+      "change": "+396,000",
+      "changePercent": "29.95"
     },
     {
       "name": "NVIDIA",
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "64,257",
-      "change": "-467",
-      "changePercent": "-0.72"
+      "value": "63,878",
+      "change": "-846",
+      "changePercent": "-1.31"
     }
   ]
 }
