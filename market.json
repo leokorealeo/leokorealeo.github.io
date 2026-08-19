@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-19T20:50:11Z",
+  "updatedAt": "2026-08-19T21:14:18Z",
   "indices": [
     {
       "name": "코스피",
@@ -39,9 +39,9 @@
     {
       "name": "USD/KRW",
       "category": "환율",
-      "value": "1,388.29",
-      "change": "-23.97",
-      "changePercent": "-1.70"
+      "value": "1,386.43",
+      "change": "-25.83",
+      "changePercent": "-1.83"
     }
   ],
   "stocks": [
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "68,686",
-      "change": "+4,005",
-      "changePercent": "6.19"
+      "value": "69,388",
+      "change": "+4,707",
+      "changePercent": "7.28"
     }
   ]
 }
