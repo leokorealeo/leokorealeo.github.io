@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-23T17:10:50Z",
+  "updatedAt": "2026-08-23T17:41:11Z",
   "indices": [
     {
       "name": "코스피",
@@ -26,14 +26,14 @@
       "name": "나스닥",
       "category": "미국",
       "value": "26,180.46",
-      "change": "+113.29",
+      "change": "+113.26",
       "changePercent": "0.43"
     },
     {
       "name": "닛케이225",
       "category": "일본",
       "value": "66,016.36",
-      "change": "-200.43",
+      "change": "-200.44",
       "changePercent": "-0.30"
     },
     {
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "77,262",
-      "change": "+186",
-      "changePercent": "0.24"
+      "value": "77,242",
+      "change": "+166",
+      "changePercent": "0.22"
     }
   ]
 }
