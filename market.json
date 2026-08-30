@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-30T16:50:04Z",
+  "updatedAt": "2026-08-30T19:32:14Z",
   "indices": [
     {
       "name": "코스피",
@@ -26,14 +26,14 @@
       "name": "나스닥",
       "category": "미국",
       "value": "26,402.42",
-      "change": "-138.93",
+      "change": "-138.98",
       "changePercent": "-0.52"
     },
     {
       "name": "닛케이225",
       "category": "일본",
       "value": "66,405.56",
-      "change": "+273.58",
+      "change": "+273.56",
       "changePercent": "0.41"
     },
     {
@@ -56,7 +56,7 @@
       "name": "SK하이닉스",
       "category": "반도체",
       "value": "1,653,000",
-      "change": "-76,625",
+      "change": "-76,620",
       "changePercent": "-4.43"
     },
     {
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "79,152",
-      "change": "+918",
-      "changePercent": "1.17"
+      "value": "78,914",
+      "change": "+679",
+      "changePercent": "0.87"
     }
   ]
 }
