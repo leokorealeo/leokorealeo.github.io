@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-04T23:29:12Z",
+  "updatedAt": "2026-09-05T01:14:39Z",
   "indices": [
     {
       "name": "코스피",
@@ -12,8 +12,8 @@
       "name": "코스닥",
       "category": "한국",
       "value": "813.50",
-      "change": "+9.52",
-      "changePercent": "1.18"
+      "change": "+23.29",
+      "changePercent": "2.95"
     },
     {
       "name": "S&P 500",
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "79,754",
-      "change": "-1,517",
-      "changePercent": "-1.87"
+      "value": "79,645",
+      "change": "-31",
+      "changePercent": "-0.04"
     }
   ]
 }
