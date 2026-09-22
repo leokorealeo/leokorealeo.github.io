@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-22T11:53:22Z",
+  "updatedAt": "2026-09-22T15:50:27Z",
   "indices": [
     {
       "name": "코스피",
@@ -18,16 +18,16 @@
     {
       "name": "S&P 500",
       "category": "미국",
-      "value": "7,764.70",
-      "change": "+114.20",
-      "changePercent": "1.49"
+      "value": "7,758.79",
+      "change": "-5.91",
+      "changePercent": "-0.08"
     },
     {
       "name": "나스닥",
       "category": "미국",
-      "value": "27,122.09",
-      "change": "+599.55",
-      "changePercent": "2.26"
+      "value": "27,193.19",
+      "change": "+71.09",
+      "changePercent": "0.26"
     },
     {
       "name": "닛케이225",
@@ -39,9 +39,9 @@
     {
       "name": "USD/KRW",
       "category": "환율",
-      "value": "1,356.08",
-      "change": "-19.65",
-      "changePercent": "-1.43"
+      "value": "1,359.71",
+      "change": "-16.02",
+      "changePercent": "-1.16"
     }
   ],
   "stocks": [
@@ -62,16 +62,16 @@
     {
       "name": "NVIDIA",
       "category": "AI",
-      "value": "227.38",
-      "change": "+5.11",
-      "changePercent": "2.30"
+      "value": "228.52",
+      "change": "+1.14",
+      "changePercent": "0.50"
     },
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "85,951",
-      "change": "-646",
-      "changePercent": "-0.75"
+      "value": "86,455",
+      "change": "-143",
+      "changePercent": "-0.16"
     }
   ]
 }
