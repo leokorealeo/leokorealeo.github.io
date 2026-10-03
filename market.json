@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-03T08:38:35Z",
+  "updatedAt": "2026-10-03T14:00:52Z",
   "indices": [
     {
       "name": "코스피",
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "84,600",
-      "change": "+94",
-      "changePercent": "0.11"
+      "value": "84,857",
+      "change": "+351",
+      "changePercent": "0.42"
     }
   ]
 }
