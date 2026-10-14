@@ -1,26 +1,26 @@
 {
-  "updatedAt": "2026-10-13T21:22:18Z",
+  "updatedAt": "2026-10-14T00:24:08Z",
   "indices": [
     {
       "name": "코스피",
       "category": "한국",
-      "value": "6,035.35",
-      "change": "-348.89",
-      "changePercent": "-5.46"
+      "value": "6,084.91",
+      "change": "+49.56",
+      "changePercent": "0.82"
     },
     {
       "name": "코스닥",
       "category": "한국",
-      "value": "837.03",
-      "change": "-55.24",
-      "changePercent": "-6.19"
+      "value": "833.11",
+      "change": "-3.92",
+      "changePercent": "-0.47"
     },
     {
       "name": "S&P 500",
       "category": "미국",
       "value": "7,805.45",
-      "change": "-1.79",
-      "changePercent": "-0.02"
+      "change": "-6.09",
+      "changePercent": "-0.08"
     },
     {
       "name": "나스닥",
@@ -32,32 +32,32 @@
     {
       "name": "닛케이225",
       "category": "일본",
-      "value": "67,777.52",
-      "change": "-1,253.40",
-      "changePercent": "-1.82"
+      "value": "67,921.12",
+      "change": "+143.60",
+      "changePercent": "0.21"
     },
     {
       "name": "USD/KRW",
       "category": "환율",
-      "value": "1,340.13",
-      "change": "+5.97",
-      "changePercent": "0.45"
+      "value": "1,338.28",
+      "change": "-1.85",
+      "changePercent": "-0.14"
     }
   ],
   "stocks": [
     {
       "name": "삼성전자",
       "category": "반도체",
-      "value": "232,000",
-      "change": "-18,500",
-      "changePercent": "-7.39"
+      "value": "235,000",
+      "change": "+3,000",
+      "changePercent": "1.29"
     },
     {
       "name": "SK하이닉스",
       "category": "반도체",
-      "value": "1,443,000",
-      "change": "-162,000",
-      "changePercent": "-10.09"
+      "value": "1,467,000",
+      "change": "+24,000",
+      "changePercent": "1.66"
     },
     {
       "name": "NVIDIA",
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "83,280",
-      "change": "+1,526",
-      "changePercent": "1.87"
+      "value": "83,325",
+      "change": "+233",
+      "changePercent": "0.28"
     }
   ]
 }
