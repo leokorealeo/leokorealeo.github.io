@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T15:08:18Z",
+  "updatedAt": "2026-10-25T18:28:17Z",
   "indices": [
     {
       "name": "코스피",
@@ -33,7 +33,7 @@
       "name": "닛케이225",
       "category": "일본",
       "value": "62,693.16",
-      "change": "-214.68",
+      "change": "-214.64",
       "changePercent": "-0.34"
     },
     {
@@ -69,9 +69,9 @@
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "80,595",
-      "change": "-176",
-      "changePercent": "-0.22"
+      "value": "80,572",
+      "change": "-199",
+      "changePercent": "-0.25"
     }
   ]
 }
