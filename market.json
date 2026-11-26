@@ -1,77 +1,77 @@
 {
-  "updatedAt": "2026-11-25T19:42:41Z",
+  "updatedAt": "2026-11-26T02:30:42Z",
   "indices": [
     {
       "name": "코스피",
       "category": "한국",
-      "value": "4,697.51",
-      "change": "-308.52",
-      "changePercent": "-6.16"
+      "value": "4,757.33",
+      "change": "+59.82",
+      "changePercent": "1.27"
     },
     {
       "name": "코스닥",
       "category": "한국",
-      "value": "650.64",
-      "change": "+15.19",
-      "changePercent": "2.39"
+      "value": "662.70",
+      "change": "+12.06",
+      "changePercent": "1.85"
     },
     {
       "name": "S&P 500",
       "category": "미국",
-      "value": "7,186.50",
-      "change": "-14.59",
-      "changePercent": "-0.20"
+      "value": "7,182.78",
+      "change": "-18.31",
+      "changePercent": "-0.25"
     },
     {
       "name": "나스닥",
       "category": "미국",
-      "value": "23,589.61",
-      "change": "-143.93",
-      "changePercent": "-0.61"
+      "value": "23,585.80",
+      "change": "-147.73",
+      "changePercent": "-0.62"
     },
     {
       "name": "닛케이225",
       "category": "일본",
-      "value": "57,011.62",
-      "change": "-1,633.01",
-      "changePercent": "-2.78"
+      "value": "57,886.15",
+      "change": "+874.53",
+      "changePercent": "1.53"
     },
     {
       "name": "USD/KRW",
       "category": "환율",
-      "value": "1,343.50",
-      "change": "+2.42",
-      "changePercent": "0.18"
+      "value": "1,340.30",
+      "change": "-2.94",
+      "changePercent": "-0.22"
     }
   ],
   "stocks": [
     {
       "name": "삼성전자",
       "category": "반도체",
-      "value": "170,700",
-      "change": "-18,700",
-      "changePercent": "-9.87"
+      "value": "173,700",
+      "change": "+3,000",
+      "changePercent": "1.76"
     },
     {
       "name": "SK하이닉스",
       "category": "반도체",
-      "value": "1,030,000",
-      "change": "-128,000",
-      "changePercent": "-11.05"
+      "value": "1,071,000",
+      "change": "+41,000",
+      "changePercent": "3.98"
     },
     {
       "name": "NVIDIA",
       "category": "AI",
-      "value": "148.39",
-      "change": "-6.99",
-      "changePercent": "-4.50"
+      "value": "149.30",
+      "change": "-6.08",
+      "changePercent": "-3.91"
     },
     {
       "name": "비트코인",
       "category": "코인",
-      "value": "59,978",
-      "change": "+233",
-      "changePercent": "0.39"
+      "value": "60,876",
+      "change": "+498",
+      "changePercent": "0.82"
     }
   ]
 }
